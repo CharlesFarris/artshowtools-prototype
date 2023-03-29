@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E76DB017-7301-4494-96B5-94C5A0AF8EED}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Domain", "src\Domain\Domain.fsproj", "{9288CE51-3FCF-4111-80A5-F706755A359F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{DFC29FB2-2C8F-4360-A84C-A5D3C4D13212}"
+	ProjectSection(SolutionItems) = preProject
+		tests\Directory.Build.props = tests\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Domain.Tests", "tests\Domain.Tests\Domain.Tests.fsproj", "{0FDAFAFA-8400-4E9C-91AF-8FFD08DDEA8D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9288CE51-3FCF-4111-80A5-F706755A359F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9288CE51-3FCF-4111-80A5-F706755A359F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9288CE51-3FCF-4111-80A5-F706755A359F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9288CE51-3FCF-4111-80A5-F706755A359F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FDAFAFA-8400-4E9C-91AF-8FFD08DDEA8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FDAFAFA-8400-4E9C-91AF-8FFD08DDEA8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FDAFAFA-8400-4E9C-91AF-8FFD08DDEA8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FDAFAFA-8400-4E9C-91AF-8FFD08DDEA8D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9288CE51-3FCF-4111-80A5-F706755A359F} = {E76DB017-7301-4494-96B5-94C5A0AF8EED}
+		{0FDAFAFA-8400-4E9C-91AF-8FFD08DDEA8D} = {DFC29FB2-2C8F-4360-A84C-A5D3C4D13212}
+	EndGlobalSection
+EndGlobal
