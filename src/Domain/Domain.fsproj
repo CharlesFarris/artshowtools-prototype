@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <AssemblyName>SleepingBearSystems.ArtShowToolsPrototype.Domain</AssemblyName>
+        <RootNamespace>SleepingBearSystems.ArtShowToolsPrototype.Domain</RootNamespace>
+        <TargetFramework>net7.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Library.fs"/>
+    </ItemGroup>
+
+</Project>

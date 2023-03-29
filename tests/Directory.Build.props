@@ -1,0 +1,9 @@
+<Project>
+  <!--
+    Build Properties
+  -->
+  <PropertyGroup>
+    <GenerateProgramFile>false</GenerateProgramFile>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+</Project>
