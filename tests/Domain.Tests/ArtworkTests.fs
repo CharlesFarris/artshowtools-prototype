@@ -231,22 +231,3 @@ let ``Artwork.handle ChangeYear succeeds`` () =
         | _ -> Assert.Fail("unexpected event type")
     | Error _ -> Assert.Fail("command should not succeed")
 
-[<Test>]
-let ``testing binding`` () =
-    let events = [
-        Created { Id = id; Title = title; Year = year }
-        TitleChanged { Id = id; Title = newTitle }
-        YearChanged { Id = id; Year = newYear }
-    ]
-    let finalTitle = "Final Title" |> ArtworkTitle
-    let command = ChangeTitle { Id = id; Title = finalTitle }
-    match events |> Artwork.apply Initial with
-    | Ok artwork ->
-        match command |> Artwork.handle artwork with
-        | Ok events ->
-            match updated with
-            | Existing existing ->
-                Assert.That(existing.Id, Is.EqualTo(id))
-                Assert.That(existing.Ti)
-        | Error _ -> Assert.Fail("command should succeed")
-    | Error _ -> Assert.Fail("apply should succeed")
