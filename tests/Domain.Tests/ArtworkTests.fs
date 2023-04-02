@@ -9,7 +9,7 @@ let year = 2023 |> ArtworkYear
 let artwork = Existing { Id = id; Title = title; Year = year }
 
 [<Test>]
-let ``Artwork.handle fails if artwork exists`` () =
+let ``Artwork.handle Create fails if artwork exists`` () =
     let command = Create { Id = id; Title = title; Year = year }
     let result = command |> Artwork.handle artwork
     match result with
@@ -20,7 +20,7 @@ let ``Artwork.handle fails if artwork exists`` () =
         | _ -> Assert.Fail("wrong error type")
 
 [<Test>]
-let ``Artwork.handle succeeds`` () =
+let ``Artwork.handle Create succeeds`` () =
     let command = Create { Id = id; Title = title; Year = year }
     let result = command |> Artwork.handle Initial
     match result with
