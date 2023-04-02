@@ -230,4 +230,3 @@ let ``Artwork.handle ChangeYear succeeds`` () =
             Assert.That(yearChanged.Year, Is.EqualTo(newYear))
         | _ -> Assert.Fail("unexpected event type")
     | Error _ -> Assert.Fail("command should not succeed")
-
