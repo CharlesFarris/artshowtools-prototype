@@ -1,8 +1,8 @@
-﻿namespace SleepingBearSystem.ArtShowToolsPrototype.Domain
+﻿namespace SleepingBearSystems.ArtShowToolsPrototype.Domain
 
 open System
 
-type ArtworkId = ArtworkId of Guid
+type ArtworkId = private ArtworkId of Guid
 type ArtworkTitle = ArtworkTitle of string
 type ArtworkYear = ArtworkYear of int
 
@@ -38,6 +38,7 @@ type ArtworkError =
     | WrongArtwork
     | InvalidArtworkTitle
     | InvalidArtworkYear
+    | InvalidArtworkId
 
 type Artwork =
     | Initial
@@ -48,8 +49,20 @@ and ArtworkInfo =
       Title: ArtworkTitle
       Year: ArtworkYear }
 
+module ArtworkId =
+    let fromGuid (guid: Guid) : Result<ArtworkId, ArtworkError> =
+        if (guid = Guid.Empty) then
+            Error InvalidArtworkId
+        else
+            Ok(guid |> ArtworkId)
+
+    let toGuid (id: ArtworkId) : Guid =
+        let (ArtworkId guid) = id
+        guid
+
 module Artwork =
-    let private applyEvent result event : Result<Artwork, ArtworkError> =
+    let private
+    applyEvent result event : Result<Artwork, ArtworkError> =
         match result with
         | Error _ -> result
         | Ok artwork ->
@@ -69,7 +82,11 @@ module Artwork =
                 | Initial -> Error ArtworkDoesNotExist
                 | Existing existing ->
                     if (existing.Id = titleChanged.Id) then
-                        Ok(Existing { existing with Title = titleChanged.Title })
+                        Ok(
+                            Existing
+                                { existing with
+                                    Title = titleChanged.Title }
+                        )
                     else
                         Error WrongArtwork
             | YearChanged yearChanged ->
@@ -77,7 +94,11 @@ module Artwork =
                 | Initial -> Error ArtworkDoesNotExist
                 | Existing existing ->
                     if (existing.Id = yearChanged.Id) then
-                        Ok(Existing { existing with Year = yearChanged.Year })
+                        Ok(
+                            Existing
+                                { existing with
+                                    Year = yearChanged.Year }
+                        )
                     else
                         Error WrongArtwork
 

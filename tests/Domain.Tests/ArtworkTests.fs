@@ -1,13 +1,22 @@
-module SleepingBearSystem.ArtShowToolsPrototype.Domain.Tests
+module SleepingBearSystems.ArtShowToolsPrototype.Domain.Tests.ArtworkTests
 
 open System
 open NUnit.Framework
+open SleepingBearSystems.ArtShowToolsPrototype.Domain
 
-let id = Guid("350EA2A6-6316-44DE-9316-2D545E5CA2C5") |> ArtworkId
+let id =
+    Guid("350EA2A6-6316-44DE-9316-2D545E5CA2C5")
+    |> ArtworkId.fromGuid
+    |> Testing.failOnError "invalid id"
+
 let title = "Title" |> ArtworkTitle
 let year = 2023 |> ArtworkYear
 let artwork = Existing { Id = id; Title = title; Year = year }
-let wrongId = Guid("D96CD8A5-E757-4798-8753-769E710AFA5A") |> ArtworkId
+
+let wrongId =
+    Guid("D96CD8A5-E757-4798-8753-769E710AFA5A")
+    |> ArtworkId.fromGuid
+    |> Testing.failOnError "invalid id"
 
 let wrongArtwork =
     Existing
