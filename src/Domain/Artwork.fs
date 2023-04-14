@@ -61,8 +61,7 @@ module ArtworkId =
         guid
 
 module Artwork =
-    let private
-    applyEvent result event : Result<Artwork, ArtworkError> =
+    let private applyEvent result event : Result<Artwork, ArtworkError> =
         match result with
         | Error _ -> result
         | Ok artwork ->

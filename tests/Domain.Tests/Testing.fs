@@ -5,7 +5,7 @@ open NUnit.Framework
 let failOnError<'T, 'E> (message: string) (result: Result<'T, 'E>) : 'T =
     match result with
     | Ok v -> v
-    | Error _ -> failwith (message)
+    | Error _ -> failwith message
 
 [<Test>]
 let ``Testing.failOnError handles Error correctly`` () =
