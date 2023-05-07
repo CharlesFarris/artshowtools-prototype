@@ -10,11 +10,13 @@ let id =
     |> Testing.failOnError "invalid id"
 
 let title =
-    "Title"
-    |> ArtworkTitle.fromString
-    |> Testing.failOnError "invalid title"
+    "Title" |> ArtworkTitle.fromString |> Testing.failOnError "invalid title"
 
-let year = 2023 |> ArtworkYear
+let year =
+    2023
+    |> ArtworkYear.fromInteger
+    |> Testing.failOnError "invalid year"
+
 let artwork = Existing { Id = id; Title = title; Year = year }
 
 let wrongId =
@@ -29,10 +31,12 @@ let wrongArtwork =
           Year = year }
 
 let newTitle =
-    "New Title"
-    |> ArtworkTitle.fromString
-    |> Testing.failOnError "invalid title"
-let newYear = 2025 |> ArtworkYear
+    "New Title" |> ArtworkTitle.fromString |> Testing.failOnError "invalid title"
+
+let newYear =
+    2025
+    |> ArtworkYear.fromInteger
+    |> Testing.failOnError "invalid year"
 
 [<Test>]
 let ``Artwork.apply Created succeeds`` () =
