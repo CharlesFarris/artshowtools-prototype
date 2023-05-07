@@ -9,7 +9,11 @@ let id =
     |> ArtworkId.fromGuid
     |> Testing.failOnError "invalid id"
 
-let title = "Title" |> ArtworkTitle
+let title =
+    "Title"
+    |> ArtworkTitle.fromString
+    |> Testing.failOnError "invalid title"
+
 let year = 2023 |> ArtworkYear
 let artwork = Existing { Id = id; Title = title; Year = year }
 
@@ -24,7 +28,10 @@ let wrongArtwork =
           Title = title
           Year = year }
 
-let newTitle = "New Title" |> ArtworkTitle
+let newTitle =
+    "New Title"
+    |> ArtworkTitle.fromString
+    |> Testing.failOnError "invalid title"
 let newYear = 2025 |> ArtworkYear
 
 [<Test>]

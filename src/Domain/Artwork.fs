@@ -3,7 +3,7 @@
 open System
 
 type ArtworkId = private ArtworkId of Guid
-type ArtworkTitle = ArtworkTitle of string
+type ArtworkTitle = private ArtworkTitle of string
 type ArtworkYear = ArtworkYear of int
 
 type ArtworkCommand =
@@ -50,15 +50,28 @@ and ArtworkInfo =
       Year: ArtworkYear }
 
 module ArtworkId =
-    let fromGuid (guid: Guid) : Result<ArtworkId, ArtworkError> =
-        if (guid = Guid.Empty) then
+    let fromGuid (id: Guid) : Result<ArtworkId, ArtworkError> =
+        if (id = Guid.Empty) then
             Error InvalidArtworkId
         else
-            Ok(guid |> ArtworkId)
+            Ok(id |> ArtworkId)
 
-    let toGuid (id: ArtworkId) : Guid =
-        let (ArtworkId guid) = id
-        guid
+    let toGuid (artworkId: ArtworkId) : Guid =
+        let (ArtworkId id) = artworkId
+        id
+
+module ArtworkTitle =
+    let fromString (title: string) : Result<ArtworkTitle, ArtworkError> =
+        if String.IsNullOrWhiteSpace(title) then
+            Error InvalidArtworkTitle
+        else if (title.Length > 64) then
+            Error InvalidArtworkTitle
+        else
+            Ok(title |> ArtworkTitle)
+
+    let toString (artworkTitle: ArtworkTitle) : string =
+        let (ArtworkTitle title) = artworkTitle
+        title
 
 module Artwork =
     let private applyEvent result event : Result<Artwork, ArtworkError> =
