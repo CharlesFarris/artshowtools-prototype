@@ -8,16 +8,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Testing.fs"/>
-        <Compile Include="ArtworkIdTests.fs"/>
-        <Compile Include="ArtworkTests.fs"/>
-        <Compile Include="Program.fs"/>
+        <Compile Include="Testing.fs" />
+        <Compile Include="ArtworkIdTests.fs" />
+        <Compile Include="ArtworkTitleTests.fs" />
+        <Compile Include="ArtworkYearTests.fs" />
+        <Compile Include="ArtworkTests.fs" />
+        <Compile Include="Program.fs" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0"/>
-        <PackageReference Include="NUnit" Version="3.13.3"/>
-        <PackageReference Include="NUnit3TestAdapter" Version="4.4.2"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+        <PackageReference Include="NUnit" Version="3.13.3" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.4.2" />
         <PackageReference Include="NUnit.Analyzers" Version="3.6.1">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -29,7 +31,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Domain\Domain.fsproj"/>
+        <ProjectReference Include="..\..\src\Domain\Domain.fsproj" />
     </ItemGroup>
 
 </Project>

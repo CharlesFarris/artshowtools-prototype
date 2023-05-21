@@ -9,7 +9,7 @@ let failOnError<'T, 'E> (message: string) (result: Result<'T, 'E>) : 'T =
 
 [<Test>]
 let ``Testing.failOnError handles Error correctly`` () =
-    let ex = Assert.Throws (fun x -> Error "error" |> failOnError "fail" |> ignore)
+    let ex = Assert.Throws(fun x -> Error "error" |> failOnError "fail" |> ignore)
     Assert.That(ex.Message, Is.EqualTo("fail"))
 
 [<Test>]
