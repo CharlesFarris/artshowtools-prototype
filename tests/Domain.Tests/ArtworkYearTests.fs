@@ -1,6 +1,5 @@
 module SleepingBearSystems.ArtShowToolsPrototype.Domain.Tests.ArtworkYearTests
 
-open System
 open NUnit.Framework
 open SleepingBearSystems.ArtShowToolsPrototype.Domain
 

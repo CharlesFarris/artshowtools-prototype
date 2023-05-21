@@ -12,10 +12,7 @@ let id =
 let title =
     "Title" |> ArtworkTitle.fromString |> Testing.failOnError "invalid title"
 
-let year =
-    2023
-    |> ArtworkYear.fromInteger
-    |> Testing.failOnError "invalid year"
+let year = 2023 |> ArtworkYear.fromInteger |> Testing.failOnError "invalid year"
 
 let artwork = Existing { Id = id; Title = title; Year = year }
 
@@ -33,10 +30,7 @@ let wrongArtwork =
 let newTitle =
     "New Title" |> ArtworkTitle.fromString |> Testing.failOnError "invalid title"
 
-let newYear =
-    2025
-    |> ArtworkYear.fromInteger
-    |> Testing.failOnError "invalid year"
+let newYear = 2025 |> ArtworkYear.fromInteger |> Testing.failOnError "invalid year"
 
 [<Test>]
 let ``Artwork.apply Created succeeds`` () =
@@ -66,8 +60,14 @@ let ``Artwork.apply Created fails if artwork exists`` () =
         | _ -> Assert.Fail("unexpected error type")
 
 [<Test>]
-let ``Artwork.apply TitleChanged succeeds`` () =
-    let events = TitleChanged { Id = id; Title = newTitle } |> List.singleton
+let ``Artwork.apply MetadataChanged succeeds`` () =
+    let events =
+        MetadataChanged
+            { Id = id
+              Title = newTitle
+              Year = newYear }
+        |> List.singleton
+
     let result = events |> Artwork.apply artwork
 
     match result with
@@ -77,50 +77,18 @@ let ``Artwork.apply TitleChanged succeeds`` () =
         | Existing existing ->
             Assert.That(existing.Id, Is.EqualTo(id))
             Assert.That(existing.Title, Is.EqualTo(newTitle))
-    | Error _ -> Assert.Fail("apply should have succeeded")
-
-[<Test>]
-let ``Artwork.apply TitleChanged fails if artwork does not exist`` () =
-    let events = TitleChanged { Id = id; Title = newTitle } |> List.singleton
-    let result = events |> Artwork.apply Initial
-
-    match result with
-    | Ok _ -> Assert.Fail("apply should not have succeeded")
-    | Error error ->
-        match error with
-        | ArtworkDoesNotExist -> ()
-        | _ -> Assert.Fail("unexpected error type")
-
-[<Test>]
-let ``Artwork.apply TitleChanged fails on wrong ID`` () =
-    let events = TitleChanged { Id = id; Title = newTitle } |> List.singleton
-    let result = events |> Artwork.apply wrongArtwork
-
-    match result with
-    | Ok _ -> Assert.Fail("apply should not have succeeded")
-    | Error error ->
-        match error with
-        | WrongArtwork -> ()
-        | _ -> Assert.Fail("unexpected error type")
-
-
-[<Test>]
-let ``Artwork.apply YearChanged succeeds`` () =
-    let events = YearChanged { Id = id; Year = newYear } |> List.singleton
-    let result = events |> Artwork.apply artwork
-
-    match result with
-    | Ok updated ->
-        match updated with
-        | Initial -> Assert.Fail("unexpected state")
-        | Existing existing ->
-            Assert.That(existing.Id, Is.EqualTo(id))
             Assert.That(existing.Year, Is.EqualTo(newYear))
     | Error _ -> Assert.Fail("apply should have succeeded")
 
 [<Test>]
-let ``Artwork.apply YearChanged fails if artwork does not exist`` () =
-    let events = YearChanged { Id = id; Year = newYear } |> List.singleton
+let ``Artwork.apply MetadataChanged fails if artwork does not exist`` () =
+    let events =
+        MetadataChanged
+            { Id = id
+              Title = newTitle
+              Year = newYear }
+        |> List.singleton
+
     let result = events |> Artwork.apply Initial
 
     match result with
@@ -131,8 +99,14 @@ let ``Artwork.apply YearChanged fails if artwork does not exist`` () =
         | _ -> Assert.Fail("unexpected error type")
 
 [<Test>]
-let ``Artwork.apply YearChanged fails on wrong ID`` () =
-    let events = YearChanged { Id = id; Year = newYear } |> List.singleton
+let ``Artwork.apply MetadataChanged fails on wrong ID`` () =
+    let events =
+        MetadataChanged
+            { Id = id
+              Title = newTitle
+              Year = newYear }
+        |> List.singleton
+
     let result = events |> Artwork.apply wrongArtwork
 
     match result with
@@ -172,8 +146,13 @@ let ``Artwork.handle Create succeeds`` () =
     | Error _ -> Assert.Fail("command should succeed")
 
 [<Test>]
-let ``Artwork.handle ChangeTitle fails if artwork does not exist`` () =
-    let command = ChangeTitle { Id = id; Title = newTitle }
+let ``Artwork.handle ChangeMetadata fails if artwork does not exist`` () =
+    let command =
+        ChangeMetadata
+            { Id = id
+              Title = newTitle
+              Year = newYear }
+
     let result = command |> Artwork.handle Initial
 
     match result with
@@ -184,8 +163,13 @@ let ``Artwork.handle ChangeTitle fails if artwork does not exist`` () =
         | _ -> Assert.Fail("unexpected error type")
 
 [<Test>]
-let ``Artwork.handle ChangeTitle fails on wrong ID`` () =
-    let command = ChangeTitle { Id = id; Title = newTitle }
+let ``Artwork.handle ChangeMetadata fails on wrong ID`` () =
+    let command =
+        ChangeMetadata
+            { Id = id
+              Title = newTitle
+              Year = newYear }
+
     let result = command |> Artwork.handle wrongArtwork
 
     match result with
@@ -196,8 +180,13 @@ let ``Artwork.handle ChangeTitle fails on wrong ID`` () =
         | _ -> Assert.Fail("unexpected error type")
 
 [<Test>]
-let ``Artwork.handle ChangeTitle succeeds`` () =
-    let command = ChangeTitle { Id = id; Title = newTitle }
+let ``Artwork.handle ChangeMetadata succeeds`` () =
+    let command =
+        ChangeMetadata
+            { Id = id
+              Title = newTitle
+              Year = newYear }
+
     let result = command |> Artwork.handle artwork
 
     match result with
@@ -205,48 +194,9 @@ let ``Artwork.handle ChangeTitle succeeds`` () =
         Assert.That(events.Length, Is.EqualTo(1))
 
         match events |> List.head with
-        | TitleChanged titleChanged ->
-            Assert.That(titleChanged.Id, Is.EqualTo(id))
-            Assert.That(titleChanged.Title, Is.EqualTo(newTitle))
+        | MetadataChanged metadataChanged ->
+            Assert.That(metadataChanged.Id, Is.EqualTo(id))
+            Assert.That(metadataChanged.Title, Is.EqualTo(newTitle))
+            Assert.That(metadataChanged.Year, Is.EqualTo(newYear))
         | _ -> Assert.Fail("unexpected event type")
     | Error _ -> Assert.Fail("command should succeed")
-
-[<Test>]
-let ``Artwork.handle ChangeYear fails if artwork does not exist`` () =
-    let command = ChangeYear { Id = id; Year = newYear }
-    let result = command |> Artwork.handle Initial
-
-    match result with
-    | Ok _ -> Assert.Fail("command should not succeed")
-    | Error error ->
-        match error with
-        | ArtworkDoesNotExist -> ()
-        | _ -> Assert.Fail("unexpected error type")
-
-[<Test>]
-let ``Artwork.handle ChangeYear fails on wrong ID`` () =
-    let command = ChangeYear { Id = id; Year = newYear }
-    let result = command |> Artwork.handle wrongArtwork
-
-    match result with
-    | Ok _ -> Assert.Fail("command should not succeed")
-    | Error error ->
-        match error with
-        | WrongArtwork -> ()
-        | _ -> Assert.Fail("unexpected error type")
-
-[<Test>]
-let ``Artwork.handle ChangeYear succeeds`` () =
-    let command = ChangeYear { Id = id; Year = newYear }
-    let result = command |> Artwork.handle artwork
-
-    match result with
-    | Ok events ->
-        Assert.That(events.Length, Is.EqualTo(1))
-
-        match events |> List.head with
-        | YearChanged yearChanged ->
-            Assert.That(yearChanged.Id, Is.EqualTo(id))
-            Assert.That(yearChanged.Year, Is.EqualTo(newYear))
-        | _ -> Assert.Fail("unexpected event type")
-    | Error _ -> Assert.Fail("command should not succeed")
