@@ -8,29 +8,31 @@ type ArtworkYear = private ArtworkYear of int
 
 type ArtworkCommand =
     | Create of ArtworkCreate
-    | ChangeTitle of ArtworkChangeTitle
-    | ChangeYear of ArtworkChangeYear
+    | ChangeMetadata of ArtworkChangeMetadata
 
 and ArtworkCreate =
     { Id: ArtworkId
       Title: ArtworkTitle
       Year: ArtworkYear }
 
-and ArtworkChangeTitle = { Id: ArtworkId; Title: ArtworkTitle }
-and ArtworkChangeYear = { Id: ArtworkId; Year: ArtworkYear }
+and ArtworkChangeMetadata =
+    { Id: ArtworkId
+      Title: ArtworkTitle
+      Year: ArtworkYear }
 
 type ArtworkEvent =
     | Created of ArtworkCreated
-    | TitleChanged of ArtworkTitleChanged
-    | YearChanged of ArtworkYearChanged
+    | MetadataChanged of ArtworkMetadataChanged
 
 and ArtworkCreated =
     { Id: ArtworkId
       Title: ArtworkTitle
       Year: ArtworkYear }
 
-and ArtworkTitleChanged = { Id: ArtworkId; Title: ArtworkTitle }
-and ArtworkYearChanged = { Id: ArtworkId; Year: ArtworkYear }
+and ArtworkMetadataChanged =
+    { Id: ArtworkId
+      Title: ArtworkTitle
+      Year: ArtworkYear }
 
 type ArtworkError =
     | ArtworkAlreadyExists
@@ -100,27 +102,16 @@ module Artwork =
                               Year = created.Year }
                     )
                 | _ -> Error ArtworkAlreadyExists
-            | TitleChanged titleChanged ->
+            | MetadataChanged metadataChanged ->
                 match artwork with
                 | Initial -> Error ArtworkDoesNotExist
                 | Existing existing ->
-                    if (existing.Id = titleChanged.Id) then
+                    if (existing.Id = metadataChanged.Id) then
                         Ok(
                             Existing
                                 { existing with
-                                    Title = titleChanged.Title }
-                        )
-                    else
-                        Error WrongArtwork
-            | YearChanged yearChanged ->
-                match artwork with
-                | Initial -> Error ArtworkDoesNotExist
-                | Existing existing ->
-                    if (existing.Id = yearChanged.Id) then
-                        Ok(
-                            Existing
-                                { existing with
-                                    Year = yearChanged.Year }
+                                    Title = metadataChanged.Title
+                                    Year = metadataChanged.Year }
                         )
                     else
                         Error WrongArtwork
@@ -141,28 +132,16 @@ module Artwork =
                     |> List.singleton
                 )
             | Existing _ -> Error ArtworkAlreadyExists
-        | ChangeTitle changeTitle ->
+        | ChangeMetadata changeMetadata ->
             match artwork with
             | Initial _ -> Error ArtworkDoesNotExist
             | Existing existing ->
-                if (existing.Id = changeTitle.Id) then
+                if (existing.Id = changeMetadata.Id) then
                     Ok(
-                        TitleChanged
-                            { Id = changeTitle.Id
-                              Title = changeTitle.Title }
-                        |> List.singleton
-                    )
-                else
-                    Error WrongArtwork
-        | ChangeYear changeYear ->
-            match artwork with
-            | Initial -> Error ArtworkDoesNotExist
-            | Existing existing ->
-                if (existing.Id = changeYear.Id) then
-                    Ok(
-                        YearChanged
-                            { Id = changeYear.Id
-                              Year = changeYear.Year }
+                        MetadataChanged
+                            { Id = changeMetadata.Id
+                              Title = changeMetadata.Title
+                              Year = changeMetadata.Year }
                         |> List.singleton
                     )
                 else
