@@ -1,4 +1,4 @@
-module SleepingBearSystems.ArtShowToolsPrototype.Domain.Tests.Testing
+module SleepingBearSystems.ArtShowTools.Prototype.Domain.Tests.Testing
 
 open NUnit.Framework
 

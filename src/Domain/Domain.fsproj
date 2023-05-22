@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <AssemblyName>SleepingBearSystems.ArtShowToolsPrototype.Domain</AssemblyName>
-        <RootNamespace>SleepingBearSystems.ArtShowToolsPrototype.Domain</RootNamespace>
+        <AssemblyName>SleepingBearSystems.ArtShowTools.Prototype.Domain</AssemblyName>
+        <RootNamespace>SleepingBearSystems.ArtShowTools.Prototype.Domain</RootNamespace>
         <TargetFramework>net7.0</TargetFramework>
     </PropertyGroup>
 

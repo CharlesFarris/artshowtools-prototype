@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <AssemblyName>SleepingBearSystems.ArtShowToolsPrototype.Domain.Tests</AssemblyName>
-        <RootNamespace>SleepingBearSystems.ArtShowToolsPrototype.Domain.Tests</RootNamespace>
+        <AssemblyName>SleepingBearSystems.ArtShowTools.Prototype.Domain.Tests</AssemblyName>
+        <RootNamespace>SleepingBearSystems.ArtShowTools.Prototype.Domain.Tests</RootNamespace>
         <TargetFramework>net7.0</TargetFramework>
         <IsTestProject>true</IsTestProject>
     </PropertyGroup>

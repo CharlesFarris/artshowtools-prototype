@@ -1,8 +1,8 @@
-module SleepingBearSystems.ArtShowToolsPrototype.Domain.Tests.ArtworkTitleTests
+module SleepingBearSystems.ArtShowTools.Prototype.Domain.Tests.ArtworkTitleTests
 
 open System
 open NUnit.Framework
-open SleepingBearSystems.ArtShowToolsPrototype.Domain
+open SleepingBearSystems.ArtShowTools.Prototype.Domain
 
 [<Test>]
 let ``ArtworkTitle.fromString fails on empty string`` () =
