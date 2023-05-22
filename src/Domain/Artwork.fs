@@ -1,4 +1,4 @@
-﻿namespace SleepingBearSystems.ArtShowToolsPrototype.Domain
+﻿namespace SleepingBearSystems.ArtShowTools.Prototype.Domain
 
 open System
 

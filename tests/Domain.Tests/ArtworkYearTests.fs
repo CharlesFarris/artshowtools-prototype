@@ -1,7 +1,7 @@
-module SleepingBearSystems.ArtShowToolsPrototype.Domain.Tests.ArtworkYearTests
+module SleepingBearSystems.ArtShowTools.Prototype.Domain.Tests.ArtworkYearTests
 
 open NUnit.Framework
-open SleepingBearSystems.ArtShowToolsPrototype.Domain
+open SleepingBearSystems.ArtShowTools.Prototype.Domain
 
 [<Test>]
 let ``ArtworkYear.fromInteger fails on value less than 1`` () =

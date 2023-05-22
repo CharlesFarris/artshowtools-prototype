@@ -1,8 +1,8 @@
-module SleepingBearSystems.ArtShowToolsPrototype.Domain.Tests.ArtworkIdTests
+module SleepingBearSystems.ArtShowTools.Prototype.Domain.Tests.ArtworkIdTests
 
 open System
 open NUnit.Framework
-open SleepingBearSystems.ArtShowToolsPrototype.Domain
+open SleepingBearSystems.ArtShowTools.Prototype.Domain
 
 let guid = Guid("AD5BB7A9-4AC8-409E-9736-55E0CBB9EED0")
 
